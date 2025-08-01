@@ -9,7 +9,6 @@ export default function TransactionHistoryContainer() {
   const [records, setRecords] = useState<ITransactionRecord[]>([]);
   const [offset, setOffset] = useState<number>(0);
   const [limit] = useState<number>(5);
-  const [hasMore, setHasMore] = useState<boolean>(true);
   const [showAll, setShowAll] = useState<boolean>(false);
 
   dayjs.locale("id");
@@ -20,7 +19,6 @@ export default function TransactionHistoryContainer() {
       const newRecords = res.data.records;
 
       if (!newRecords || newRecords.length === 0) {
-        setHasMore(false);
         setShowAll(true);
         return;
       }
@@ -28,7 +26,6 @@ export default function TransactionHistoryContainer() {
       const updatedRecords = [...records, ...newRecords];
       setRecords(updatedRecords);
       if (newRecords.length < limit) {
-        setHasMore(false);
         setShowAll(true);
       } else {
         setOffset((prev) => prev + limit);
@@ -43,7 +40,6 @@ export default function TransactionHistoryContainer() {
       const res = await getTransactionHistory(0, limit);
       setRecords(res.data.records);
       setOffset(limit);
-      setHasMore(true);
       setShowAll(false);
     } catch (error) {
       console.error(error);

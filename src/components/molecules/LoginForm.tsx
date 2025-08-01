@@ -1,10 +1,9 @@
-// src/components/molecules/RegisterForm.tsx
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import InputField from "../atoms/InputField";
 import { Icon } from "@iconify/react";
 import Button from "../atoms/Button";
-import { loginSchema, type LoginForm } from "../../service/schema/auth";
+import { loginSchema, type ILoginForm } from "../../service/schema/auth";
 import { login } from "../../service/action/auth";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -22,11 +21,11 @@ const LoginForm = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginForm>({
+  } = useForm<ILoginForm>({
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = async (data: LoginForm) => {
+  const onSubmit = async (data: ILoginForm) => {
     try {
       setIsLoading(true);
       const res = await login(data);

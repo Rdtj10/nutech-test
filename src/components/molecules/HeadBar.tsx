@@ -1,5 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
-import { cn } from "../../libs/util";
+import { useNavigate } from "react-router-dom";
 
 const Menu = [
   {
